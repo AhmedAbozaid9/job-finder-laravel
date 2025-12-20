@@ -14,6 +14,12 @@
                     <x-job-card :job="$job" />
                 @endforeach
             </div>
+
+            @if (method_exists($jobs, 'links') && $jobs->hasPages())
+                <div class="mt-6 flex justify-center">
+                    {{ $jobs->links() }}
+                </div>
+            @endif
         </div>
     </section>
 </x-layout>
