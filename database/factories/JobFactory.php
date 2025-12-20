@@ -1,6 +1,7 @@
 <?php
 namespace Database\Factories;
 
+use App\Models\Job;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,9 +22,9 @@ class JobFactory extends Factory
             'location'         => $this->faker->city(),
             'category'         => $this->faker->randomElement(['IT', 'Finance', 'Healthcare', 'Education', 'Marketing']),
             'salary'           => $this->faker->numberBetween(40_000, 120_000),
-            'type'             => $this->faker->randomElement(\App\Models\Job::$types),
-            'status'           => $this->faker->randomElement(\App\Models\Job::$statuses),
-            'experience_level' => $this->faker->randomElement(\App\Models\Job::$experience_levels),
+            'type'             => $this->faker->randomElement(Job::$types),
+            'status'           => $this->faker->randomElement(Job::$statuses),
+            'experience_level' => $this->faker->randomElement(Job::$experience_levels),
         ];
     }
 }
