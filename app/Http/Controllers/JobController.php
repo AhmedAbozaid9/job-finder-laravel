@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Job;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
+use App\Models\Job;
 
 class JobController extends Controller
 {
@@ -13,7 +12,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        return view('job.index', [
+            'jobs' => Job::all(),
+        ]);
     }
 
     /**
