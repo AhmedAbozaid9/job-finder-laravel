@@ -13,7 +13,7 @@ class JobController extends Controller
     public function index()
     {
         return view('job.index', [
-            'jobs' => Job::paginate(10),
+            'jobs' => Job::paginate(12),
         ]);
     }
 
