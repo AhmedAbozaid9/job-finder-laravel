@@ -12,6 +12,7 @@ class Job extends Model
     public static $types             = ['full-time', 'part-time', 'contract', 'internship', 'temporary'];
     public static $statuses          = ['open', 'closed', 'paused'];
     public static $experience_levels = ['entry', 'mid', 'senior', 'lead'];
+    public static $categories        = ['IT', 'Finance', 'Healthcare', 'Education', 'Marketing'];
 
     protected $fillable = [
         'title',

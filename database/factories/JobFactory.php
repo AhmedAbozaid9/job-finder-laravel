@@ -20,11 +20,12 @@ class JobFactory extends Factory
             'title'            => $this->faker->jobTitle(),
             'description'      => $this->faker->paragraphs(3, true),
             'location'         => $this->faker->city(),
-            'category'         => $this->faker->randomElement(['IT', 'Finance', 'Healthcare', 'Education', 'Marketing']),
+            'category'         => $this->faker->randomElement(Job::$categories),
             'salary'           => $this->faker->numberBetween(40_000, 120_000),
             'type'             => $this->faker->randomElement(Job::$types),
             'status'           => $this->faker->randomElement(Job::$statuses),
             'experience_level' => $this->faker->randomElement(Job::$experience_levels),
+            'company_name'     => $this->faker->company(),
         ];
     }
 }
