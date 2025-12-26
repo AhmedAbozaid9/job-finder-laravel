@@ -1,7 +1,7 @@
 @props(['job'])
 
 <x-layout :title="$job->title">
-    <div class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div class="bg-white/60 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden">
             <header class="px-6 py-6 sm:px-10 sm:py-8 border-b border-slate-100">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
