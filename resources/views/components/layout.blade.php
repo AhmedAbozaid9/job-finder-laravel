@@ -20,15 +20,12 @@
                 <a href="{{ route('landing') }}" class="text-xl font-bold text-indigo-600">{{ $title }}</a>
                 <nav class="space-x-4 text-sm">
                     <a href="{{ route('jobs.index') }}" class="text-gray-600 hover:text-indigo-600">Browse Jobs</a>
-                    <a href="#" class="text-gray-600 hover:text-indigo-600">About</a>
                     @if (Route::has('login'))
                         @auth
                             <a href="#" class="text-gray-600 hover:text-indigo-600">Dashboard</a>
                         @else
                             <a href="{{ route('login') }}" class="text-gray-600 hover:text-indigo-600">Log in</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="text-gray-600 hover:text-indigo-600">Register</a>
-                            @endif
+
                         @endauth
                     @endif
                 </nav>

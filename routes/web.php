@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,7 @@ Route::get('/contact', function () {
 
 Route::view('/privacy', 'privacy')->name('privacy');
 Route::view('/terms', 'terms')->name('terms');
+
+// Auth routes
+Route::get('/login', [Auth::class, 'showLogin'])->name('login');
+Route::get('/register', [Auth::class, 'showRegister'])->name('register');
