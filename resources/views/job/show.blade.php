@@ -92,14 +92,14 @@
                     </div>
                 </div>
 
-                <!-- Requirements Card (placeholder) -->
+                <!-- Requirements Card -->
                 <div class="bg-dark-surface border border-dark-border rounded-2xl p-8">
                     <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
                         <span class="w-1 h-6 bg-gradient-pink rounded-full"></span>
                         Requirements
                     </h2>
                     <ul class="space-y-3">
-                        @foreach (['3+ years of experience in related field', 'Strong communication skills', 'Ability to work in a fast-paced environment', 'Bachelor\'s degree or equivalent'] as $req)
+                        @forelse ($job->requirements ?? [] as $req)
                             <li class="flex items-start gap-3 text-text-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink flex-shrink-0 mt-0.5"
                                     viewBox="0 0 20 20" fill="currentColor">
@@ -109,7 +109,9 @@
                                 </svg>
                                 {{ $req }}
                             </li>
-                        @endforeach
+                        @empty
+                            <p class="text-text-secondary">No specific requirements listed.</p>
+                        @endforelse
                     </ul>
                 </div>
             </div>

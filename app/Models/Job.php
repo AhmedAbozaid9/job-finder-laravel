@@ -17,8 +17,13 @@ class Job extends Model
     protected $fillable = [
         'title',
         'description',
+        'requirements',
         'location',
         'salary',
         'company_name',
+    ];
+
+    protected $casts = [
+        'requirements' => 'array',
     ];
 }
