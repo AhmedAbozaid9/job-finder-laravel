@@ -119,7 +119,7 @@ body {
     background: linear-gradient(
         135deg,
         var(--color-pink) 0%,
-        var(--color-purple) 100%
+        var(--color-pink-light) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -130,7 +130,7 @@ body {
     background: linear-gradient(
         135deg,
         var(--color-pink) 0%,
-        var(--color-purple) 100%
+        var(--color-pink-light) 100%
     );
 }
 
@@ -139,7 +139,7 @@ body {
     background:
         linear-gradient(var(--color-dark-surface), var(--color-dark-surface))
             padding-box,
-        linear-gradient(135deg, var(--color-pink), var(--color-purple))
+        linear-gradient(135deg, var(--color-pink), var(--color-pink-light))
             border-box;
 }
 
@@ -160,7 +160,11 @@ body {
     content: "";
     position: absolute;
     inset: -2px;
-    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    background: linear-gradient(
+        135deg,
+        var(--color-pink),
+        var(--color-pink-light)
+    );
     border-radius: inherit;
     z-index: -1;
     opacity: 0;

@@ -26,8 +26,8 @@
 
     <!-- Navigation -->
     <header class="fixed top-0 w-full z-50 transition-all duration-300">
-        <div class="mx-4 mt-4">
-            <div class="max-w-7xl mx-auto backdrop-blur-xl bg-dark-surface/80 border border-dark-border rounded-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            <div class="w-full backdrop-blur-xl bg-dark-surface/80 border border-dark-border rounded-2xl relative">
                 <div class="px-6 flex justify-between items-center h-16">
                     <!-- Logo -->
                     <a href="{{ route('landing') }}" class="group flex items-center gap-3">
@@ -74,7 +74,8 @@
                     </nav>
 
                     <!-- Mobile Menu Button -->
-                    <button class="md:hidden p-2 rounded-lg hover:bg-white/5 transition-colors text-white">
+                    <button id="mobile-menu-button"
+                        class="md:hidden p-2 rounded-lg hover:bg-white/5 transition-colors text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -82,8 +83,51 @@
                         </svg>
                     </button>
                 </div>
+
+                <!-- Mobile Menu -->
+                <div id="mobile-menu"
+                    class="transform transition-all duration-300 ease-in-out opacity-0 -translate-y-4 invisible md:hidden border-t border-dark-border bg-dark-surface/90 rounded-b-2xl overflow-hidden backdrop-blur-xl absolute top-full left-0 right-0 -mt-1 shadow-xl origin-top">
+                    <div class="p-4 space-y-4">
+                        <a href="{{ route('jobs.index') }}"
+                            class="block px-4 py-3 rounded-xl text-text-secondary hover:text-white hover:bg-white/5 transition-all">
+                            Browse Jobs
+                        </a>
+                        <a href="{{ route('about') }}"
+                            class="block px-4 py-3 rounded-xl text-text-secondary hover:text-white hover:bg-white/5 transition-all">
+                            About
+                        </a>
+
+                        @auth
+                            <div class="border-t border-dark-border pt-4 mt-2">
+                                <a href="#"
+                                    class="block w-full text-center px-5 py-3 rounded-xl bg-gradient-pink text-black font-bold mb-3 hover:scale-[1.02] transition-transform">
+                                    Post a Job
+                                </a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full px-4 py-3 rounded-xl text-text-secondary hover:text-pink hover:bg-white/5 transition-all text-left">
+                                        Log Out
+                                    </button>
+                                </form>
+                            </div>
+                        @else
+                            <div class="border-t border-dark-border pt-4 mt-2 grid grid-cols-2 gap-3">
+                                <a href="{{ route('login') }}"
+                                    class="flex justify-center items-center px-4 py-3 rounded-xl text-text-secondary hover:text-white hover:bg-white/5 transition-all">
+                                    Log in
+                                </a>
+                                <a href="{{ route('register') }}"
+                                    class="flex justify-center items-center px-4 py-3 rounded-xl bg-gradient-pink text-black font-bold hover:scale-[1.02] transition-transform shadow-lg shadow-pink/20">
+                                    Get Started
+                                </a>
+                            </div>
+                        @endauth
+                    </div>
+                </div>
             </div>
         </div>
+
     </header>
 
     <!-- Main Content -->
@@ -151,7 +195,8 @@
                             <li><a href="{{ route('jobs.index') }}"
                                     class="text-text-muted hover:text-pink transition-colors text-sm">Browse Jobs</a>
                             </li>
-                            <li><a href="#" class="text-text-muted hover:text-pink transition-colors text-sm">For
+                            <li><a href="#"
+                                    class="text-text-muted hover:text-pink transition-colors text-sm">For
                                     Companies</a></li>
                             <li><a href="#"
                                     class="text-text-muted hover:text-pink transition-colors text-sm">Pricing</a></li>
