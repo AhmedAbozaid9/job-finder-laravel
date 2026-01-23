@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,7 +7,206 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
+    --font-sans:
+        "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    /* Core Colors - High Contrast */
+    --color-black: #0a0a0a;
+    --color-dark-surface: #141414;
+    --color-dark-elevated: #1c1c1c;
+    --color-dark-border: #2a2a2a;
+
+    /* Primary Accent - Vibrant Pink */
+    --color-pink: #ff6b9d;
+    --color-pink-light: #ff8fb3;
+    --color-pink-dark: #e85a8a;
+    --color-pink-glow: rgba(255, 107, 157, 0.4);
+
+    /* Secondary Accent - Electric Purple */
+    --color-purple: #a855f7;
+    --color-purple-light: #c084fc;
+
+    /* Text Colors - WCAG AA Compliant */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #d1d5db;
+    --color-text-muted: #9ca3af;
+
+    /* Animations */
+    --animate-fade-in: fadeIn 0.6s ease-out forwards;
+    --animate-slide-up: slideUp 0.6s ease-out forwards;
+    --animate-glow: glowPulse 2s ease-in-out infinite;
+    --animate-float: float 3s ease-in-out infinite;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes glowPulse {
+        0%,
+        100% {
+            box-shadow: 0 0 20px var(--color-pink-glow);
+        }
+        50% {
+            box-shadow:
+                0 0 40px var(--color-pink-glow),
+                0 0 60px var(--color-pink-glow);
+        }
+    }
+
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+}
+
+/* Custom Base Styles */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-black);
+    color: var(--color-text-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+    background-color: var(--color-pink);
+    color: black;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-black);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-dark-border);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-pink);
+}
+
+/* Custom Utility Classes */
+.text-gradient-pink {
+    background: linear-gradient(
+        135deg,
+        var(--color-pink) 0%,
+        var(--color-purple) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bg-gradient-pink {
+    background: linear-gradient(
+        135deg,
+        var(--color-pink) 0%,
+        var(--color-purple) 100%
+    );
+}
+
+.border-gradient {
+    border: 1px solid transparent;
+    background:
+        linear-gradient(var(--color-dark-surface), var(--color-dark-surface))
+            padding-box,
+        linear-gradient(135deg, var(--color-pink), var(--color-purple))
+            border-box;
+}
+
+.glow-pink {
+    box-shadow: 0 0 30px var(--color-pink-glow);
+}
+
+.glow-pink-sm {
+    box-shadow: 0 0 15px var(--color-pink-glow);
+}
+
+/* Button Glow Effect */
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+}
+.btn-glow::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.btn-glow:hover::before {
+    opacity: 1;
+}
+
+/* Card Hover Glow */
+.card-glow {
+    transition: all 0.3s ease;
+}
+.card-glow:hover {
+    border-color: var(--color-pink);
+    box-shadow:
+        0 0 40px var(--color-pink-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Input Focus Glow */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-pink) !important;
+    box-shadow: 0 0 0 3px var(--color-pink-glow) !important;
+}
+
+/* Pagination Overrides */
+nav[role="navigation"] .relative.z-0.inline-flex.shadow-sm.rounded-md {
+    box-shadow: none !important;
+}
+nav[role="navigation"] span[aria-current="page"] > span {
+    background-color: var(--color-pink) !important;
+    color: black !important;
+    border-color: var(--color-pink) !important;
+}
+nav[role="navigation"] a,
+nav[role="navigation"] span[aria-disabled="true"] span {
+    background-color: var(--color-dark-surface) !important;
+    color: var(--color-text-secondary) !important;
+    border-color: var(--color-dark-border) !important;
+}
+nav[role="navigation"] a:hover {
+    background-color: var(--color-dark-elevated) !important;
+    color: white !important;
+    border-color: var(--color-pink) !important;
 }
