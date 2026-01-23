@@ -47,17 +47,16 @@
 
                         @auth
                             <div class="flex items-center space-x-2 ml-4 pl-4 border-l border-dark-border">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit"
-                                        class="px-4 py-2 rounded-xl text-sm font-medium text-text-secondary hover:text-pink transition-colors">
-                                        Log Out
-                                    </button>
-                                </form>
-                                <a href="{{ route('jobs.create') }}"
-                                    class="px-5 py-2.5 rounded-xl bg-gradient-pink text-black text-sm font-bold hover:scale-105 transition-all duration-300 glow-pink-sm">
-                                    Post a Job
+                                <a href="{{ route('profile.edit') }}"
+                                    class="px-4 py-2 rounded-xl text-sm font-medium text-text-secondary hover:text-white hover:bg-white/5 transition-all">
+                                    Profile
                                 </a>
+                                @if (auth()->user()->isRecruiter())
+                                    <a href="{{ route('jobs.create') }}"
+                                        class="px-5 py-2.5 rounded-xl bg-gradient-pink text-black text-sm font-bold hover:scale-105 transition-all duration-300 glow-pink-sm">
+                                        Post a Job
+                                    </a>
+                                @endif
                             </div>
                         @else
                             <div class="flex items-center space-x-2 ml-4 pl-4 border-l border-dark-border">
@@ -99,17 +98,16 @@
 
                         @auth
                             <div class="border-t border-dark-border pt-4 mt-2">
-                                <a href="{{ route('jobs.create') }}"
-                                    class="block w-full text-center px-5 py-3 rounded-xl bg-gradient-pink text-black font-bold mb-3 hover:scale-[1.02] transition-transform">
-                                    Post a Job
+                                <a href="{{ route('profile.edit') }}"
+                                    class="block w-full px-4 py-3 rounded-xl text-text-secondary hover:text-white hover:bg-white/5 transition-all mb-2">
+                                    Profile
                                 </a>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full px-4 py-3 rounded-xl text-text-secondary hover:text-pink hover:bg-white/5 transition-all text-left">
-                                        Log Out
-                                    </button>
-                                </form>
+                                @if (auth()->user()->isRecruiter())
+                                    <a href="{{ route('jobs.create') }}"
+                                        class="block w-full text-center px-5 py-3 rounded-xl bg-gradient-pink text-black font-bold mb-3 hover:scale-[1.02] transition-transform">
+                                        Post a Job
+                                    </a>
+                                @endif
                             </div>
                         @else
                             <div class="border-t border-dark-border pt-4 mt-2 grid grid-cols-2 gap-3">

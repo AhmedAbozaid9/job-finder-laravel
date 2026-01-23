@@ -61,4 +61,19 @@ class User extends Authenticatable
     {
         return $this->role === 'seeker';
     }
+    // Relationships
+    public function postedJobs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Job::class, 'user_id');
+    }
+
+    public function applications(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Job::class, 'applications')->withTimestamps();
+    }
+
+    public function savedJobs(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Job::class, 'saved_jobs')->withTimestamps();
+    }
 }

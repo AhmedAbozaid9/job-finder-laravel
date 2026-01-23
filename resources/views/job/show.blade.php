@@ -130,26 +130,58 @@
                     </div>
 
                     <!-- Action Buttons -->
+                    <!-- Action Buttons -->
                     <div class="space-y-3">
-                        <button
-                            class="w-full py-4 bg-gradient-pink text-black font-bold rounded-xl hover:scale-[1.02] transition-all glow-pink flex items-center justify-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-                            </svg>
-                            Apply Now
-                        </button>
+                        @auth
+                            @if (!auth()->user()->isRecruiter())
+                                @if ($job->applicants->contains(auth()->user()))
+                                    <button disabled
+                                        class="w-full py-4 bg-green-500/10 text-green-500 border border-green-500/20 font-bold rounded-xl flex items-center justify-center gap-2 cursor-not-allowed">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        Applied
+                                    </button>
+                                @else
+                                    <form action="{{ route('jobs.apply', $job) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full py-4 bg-gradient-pink text-black font-bold rounded-xl hover:scale-[1.02] transition-all glow-pink flex items-center justify-center gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                                            </svg>
+                                            Apply Now
+                                        </button>
+                                    </form>
+                                @endif
 
-                        <button id="save-job-btn" data-job-id="{{ $job->id }}"
-                            class="w-full py-3 bg-dark-elevated text-text-secondary font-medium rounded-xl hover:bg-dark-border hover:text-white transition-all border border-dark-border flex items-center justify-center gap-2 group">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 saved-icon transition-colors"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
-                            <span class="save-text">Save for Later</span>
-                        </button>
+                                <form action="{{ route('jobs.save', $job) }}" method="POST">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full py-3 rounded-xl transition-all border flex items-center justify-center gap-2 group {{ $job->savedBy->contains(auth()->user()) ? 'bg-pink/10 border-pink/50 text-pink' : 'bg-dark-elevated text-text-secondary border-dark-border hover:bg-dark-border hover:text-white' }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="h-5 w-5 {{ $job->savedBy->contains(auth()->user()) ? 'fill-current' : '' }}"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                        <span>{{ $job->savedBy->contains(auth()->user()) ? 'Saved' : 'Save for Later' }}</span>
+                                    </button>
+                                </form>
+                            @endif
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="block w-full py-4 bg-gradient-pink text-black font-bold rounded-xl hover:scale-[1.02] transition-all glow-pink text-center">
+                                Login to Apply
+                            </a>
+                            <a href="{{ route('login') }}"
+                                class="block w-full py-3 bg-dark-elevated text-text-secondary font-medium rounded-xl hover:bg-dark-border hover:text-white transition-all border border-dark-border text-center">
+                                Login to Save
+                            </a>
+                        @endauth
                     </div>
 
                     <!-- Job Details -->
@@ -205,54 +237,5 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            const btn = document.getElementById('save-job-btn');
-            if (!btn) return;
 
-            const jobId = String(btn.dataset.jobId || '');
-            const STORAGE_KEY = 'savedJobs:v1';
-            const textEl = btn.querySelector('.save-text');
-            const iconEl = btn.querySelector('.saved-icon');
-
-            function getSaved() {
-                try {
-                    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-                } catch (e) {
-                    return [];
-                }
-            }
-
-            function setSaved(list) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-            }
-
-            function updateButton() {
-                const saved = getSaved();
-                const isSaved = saved.includes(jobId);
-
-                textEl.textContent = isSaved ? 'Saved' : 'Save for Later';
-                if (isSaved) {
-                    iconEl.classList.add('text-pink', 'fill-current');
-                    iconEl.classList.remove('text-text-muted');
-                    btn.classList.add('border-pink/50', 'bg-pink/10');
-                } else {
-                    iconEl.classList.remove('text-pink', 'fill-current');
-                    iconEl.classList.add('text-text-muted');
-                    btn.classList.remove('border-pink/50', 'bg-pink/10');
-                }
-            }
-
-            btn.addEventListener('click', function() {
-                const saved = getSaved();
-                const idx = saved.indexOf(jobId);
-                if (idx === -1) saved.push(jobId);
-                else saved.splice(idx, 1);
-                setSaved(saved);
-                updateButton();
-            });
-
-            updateButton();
-        })();
-    </script>
 </x-layout>

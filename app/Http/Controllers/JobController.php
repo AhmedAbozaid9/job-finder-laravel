@@ -75,9 +75,41 @@ class JobController extends Controller
             $validated['requirements'] = array_map('trim', explode("\n", $validated['requirements']));
         }
 
+        $validated['user_id'] = auth()->id();
+
         Job::create($validated);
 
         return redirect()->route('jobs.index');
+    }
+
+    public function apply(Job $job)
+    {
+        $user = auth()->user();
+
+        if ($user->isRecruiter()) {
+            return back()->with('error', 'Recruiters cannot apply to jobs.');
+        }
+
+        if ($job->applicants()->where('user_id', $user->id)->exists()) {
+            return back()->with('error', 'You have already applied for this job.');
+        }
+
+        $job->applicants()->attach($user->id);
+
+        return back()->with('success', 'Application sent successfully!');
+    }
+
+    public function save(Job $job)
+    {
+        $user = auth()->user();
+
+        if ($user->isRecruiter()) {
+            return back()->with('error', 'Recruiters cannot save jobs.');
+        }
+
+        $job->savedBy()->toggle($user->id);
+
+        return back()->with('success', 'Job saved status updated.');
     }
 
     /**

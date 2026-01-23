@@ -24,9 +24,26 @@ class Job extends Model
         'type',
         'experience_level',
         'category',
+        'user_id',
     ];
 
     protected $casts = [
         'requirements' => 'array',
+        'salary'       => 'integer',
     ];
+
+    public function poster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function applicants(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'applications')->withTimestamps();
+    }
+
+    public function savedBy(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'saved_jobs')->withTimestamps();
+    }
 }
