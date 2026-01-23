@@ -18,14 +18,21 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <a href="{{ route('landing') }}" class="text-xl font-bold text-indigo-600">{{ $title }}</a>
-                <nav class="space-x-4 text-sm">
+                <nav class="space-x-4 text-sm flex">
                     <a href="{{ route('jobs.index') }}" class="text-gray-600 hover:text-indigo-600">Browse Jobs</a>
                     @if (Route::has('login'))
                         @auth
-                            <a href="#" class="text-gray-600 hover:text-indigo-600">Dashboard</a>
+                            <div class="flex items-center space-x-4">
+                                <a href="#" class="text-gray-600 hover:text-indigo-600">Dashboard</a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="text-gray-600 hover:text-indigo-600">Log Out</button>
+                                </form>
+                            </div>
                         @else
-                            <a href="{{ route('login') }}" class="text-gray-600 hover:text-indigo-600">Log in</a>
-
+                            <div class="space-x-4">
+                                <a href="{{ route('login') }}" class="text-gray-600 hover:text-indigo-600">Log in</a>
+                            </div>
                         @endauth
                     @endif
                 </nav>
