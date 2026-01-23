@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('landing');
 })->name('landing');
 
-Route::resource('jobs', JobController::class)->only(['index', 'show']);
+Route::resource('jobs', JobController::class);
 
 Route::get('/about', function () {
     return view('about');

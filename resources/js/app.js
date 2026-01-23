@@ -58,4 +58,48 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Auth Tabs Logic
+    const initTabs = () => {
+        const triggers = document.querySelectorAll("[data-tab-trigger]");
+        if (!triggers.length) return;
+
+        triggers.forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                const targetType = trigger.dataset.tabTrigger; // 'seeker' or 'recruiter'
+                const roleInput = document.getElementById("role");
+
+                // Update hidden input if it exists (on register page)
+                if (roleInput) {
+                    roleInput.value = targetType;
+                }
+
+                // Update tab styling
+                triggers.forEach((t) => {
+                    if (t.dataset.tabTrigger === targetType) {
+                        t.setAttribute("data-active", "true");
+                        t.classList.add(
+                            "bg-dark-elevated",
+                            "text-white",
+                            "shadow-lg",
+                        );
+                        t.classList.remove(
+                            "text-text-muted",
+                            "hover:text-white",
+                        );
+                    } else {
+                        t.setAttribute("data-active", "false");
+                        t.classList.remove(
+                            "bg-dark-elevated",
+                            "text-white",
+                            "shadow-lg",
+                        );
+                        t.classList.add("text-text-muted", "hover:text-white");
+                    }
+                });
+            });
+        });
+    };
+
+    initTabs();
 });

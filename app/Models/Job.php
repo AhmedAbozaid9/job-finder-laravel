@@ -21,6 +21,9 @@ class Job extends Model
         'location',
         'salary',
         'company_name',
+        'type',
+        'experience_level',
+        'category',
     ];
 
     protected $casts = [

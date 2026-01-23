@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,7 +10,7 @@ class StoreJobRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +21,15 @@ class StoreJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'            => ['required', 'string', 'max:255'],
+            'company_name'     => ['required', 'string', 'max:255'],
+            'location'         => ['required', 'string', 'max:255'],
+            'salary'           => ['required', 'integer', 'min:0'],
+            'type'             => ['required', 'string', 'in:full-time,part-time,contract,internship,temporary'],
+            'experience_level' => ['required', 'string', 'in:entry,mid,senior,lead'],
+            'category'         => ['required', 'string', 'in:IT,Finance,Healthcare,Education,Marketing'],
+            'description'      => ['required', 'string', 'min:10'],
+            'requirements'     => ['nullable', 'string'],
         ];
     }
 }

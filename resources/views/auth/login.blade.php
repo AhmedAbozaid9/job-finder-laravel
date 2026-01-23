@@ -96,6 +96,18 @@
                     </p>
                 </div>
 
+                <!-- Account Type Tabs -->
+                <div class="grid grid-cols-2 gap-2 p-1 bg-dark-surface/50 rounded-xl border border-dark-border mb-8">
+                    <button type="button" data-tab-trigger="seeker" data-active="true"
+                        class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 bg-dark-elevated text-white shadow-lg">
+                        Individual
+                    </button>
+                    <button type="button" data-tab-trigger="recruiter" data-active="false"
+                        class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-text-muted hover:text-white">
+                        Company
+                    </button>
+                </div>
+
                 <!-- Form -->
                 <form class="space-y-5" action="{{ route('login') }}" method="POST">
                     @csrf

@@ -2,7 +2,7 @@
     <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
         {{-- Removed "Showing X to Y of Z results" text as requested --}}
 
-        <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-center w-full">
+        <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-center w-full p-2">
             <span class="relative z-0 inline-flex -space-x-px rounded-xl shadow-sm">
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())

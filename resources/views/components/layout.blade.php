@@ -54,7 +54,7 @@
                                         Log Out
                                     </button>
                                 </form>
-                                <a href="#"
+                                <a href="{{ route('jobs.create') }}"
                                     class="px-5 py-2.5 rounded-xl bg-gradient-pink text-black text-sm font-bold hover:scale-105 transition-all duration-300 glow-pink-sm">
                                     Post a Job
                                 </a>
@@ -99,7 +99,7 @@
 
                         @auth
                             <div class="border-t border-dark-border pt-4 mt-2">
-                                <a href="#"
+                                <a href="{{ route('jobs.create') }}"
                                     class="block w-full text-center px-5 py-3 rounded-xl bg-gradient-pink text-black font-bold mb-3 hover:scale-[1.02] transition-transform">
                                     Post a Job
                                 </a>

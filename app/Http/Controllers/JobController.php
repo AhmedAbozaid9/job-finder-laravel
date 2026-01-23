@@ -12,8 +12,46 @@ class JobController extends Controller
      */
     public function index()
     {
+        $query = Job::query();
+
+        // Search by title or description or company
+        if ($search = request('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('company_name', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by location
+        if ($location = request('location')) {
+            $query->where('location', 'like', "%{$location}%");
+        }
+
+        // Filter by type
+        if ($type = request('type')) {
+            $query->where('type', $type);
+        }
+
+        // Filter by category
+        if ($category = request('category')) {
+            $query->where('category', $category);
+        }
+
+        // Filter by experience level
+        if ($level = request('experience_level')) {
+            $query->where('experience_level', $level);
+        }
+
+        // Filter by minimum salary
+        if ($minSalary = request('min_salary')) {
+            $query->where('salary', '>=', $minSalary);
+        }
+
+        $jobs = $query->latest()->paginate(12)->withQueryString();
+
         return view('job.index', [
-            'jobs' => Job::paginate(12),
+            'jobs' => $jobs,
         ]);
     }
 
@@ -22,7 +60,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        return view('job.create');
     }
 
     /**
@@ -30,7 +68,16 @@ class JobController extends Controller
      */
     public function store(StoreJobRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        // Convert comma-separated requirements requirements to array if it's a string
+        if (isset($validated['requirements']) && is_string($validated['requirements'])) {
+            $validated['requirements'] = array_map('trim', explode("\n", $validated['requirements']));
+        }
+
+        Job::create($validated);
+
+        return redirect()->route('jobs.index');
     }
 
     /**
