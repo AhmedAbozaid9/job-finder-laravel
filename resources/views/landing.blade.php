@@ -104,30 +104,7 @@
     </div>
 
     <!-- Stats / Social Proof -->
-    <div class="py-12 sm:py-24 border-y border-white/5 bg-white/[0.02]">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <h2 class="text-center text-lg font-semibold leading-8 text-gray-500 mb-8">Trusted by the world's most
-                innovative teams</h2>
-            <div
-                class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5 animate-[fadeIn_1s_ease-out]">
-                <div
-                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 text-white font-bold text-2xl text-center opacity-70 hover:opacity-100 hover:text-pink transition-all cursor-default">
-                    ACME</div>
-                <div
-                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 text-white font-bold text-2xl text-center opacity-70 hover:opacity-100 hover:text-purple transition-all cursor-default">
-                    Tuple</div>
-                <div
-                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 text-white font-bold text-2xl text-center opacity-70 hover:opacity-100 hover:text-blue-400 transition-all cursor-default">
-                    SavvyCal</div>
-                <div
-                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 text-white font-bold text-2xl text-center opacity-70 hover:opacity-100 hover:text-green-400 transition-all cursor-default">
-                    Reform</div>
-                <div
-                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 text-white font-bold text-2xl text-center opacity-70 hover:opacity-100 hover:text-yellow-400 transition-all cursor-default">
-                    Orbit</div>
-            </div>
-        </div>
-    </div>
+    <x-companies-marquee />
 
     <!-- Features Section -->
     <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32" id="features">
